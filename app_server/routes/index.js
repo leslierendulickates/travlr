@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const ctrlTravel = require('../controllers/travel');
 
-router.get('/', function(req, res, next) {
-  res.redirect('/travel');
-});
+const travelRouter = require('./travel');
 
-router.get('/travel', ctrlTravel.travel);
+
+router.get('/', (req, res) => res.redirect('/travel'));
+router.use('/travel', travelRouter);
+
+
+router.get('/rooms', (req, res) => res.sendFile('rooms.html', { root: './public' })); // example if you want
 
 module.exports = router;
