@@ -1,16 +1,21 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 
-// Define the trip schema
-const tripSchema = new mongoose.Schema({
-  code: { type: String, required: true, index: true },
-  name: { type: String, required: true, index: true },
-  length: { type: String, required: true },
-  start: { type: Date, required: true },
-  resort: { type: String, required: true },
-  perPerson: { type: String, required: true },
-  image: { type: String, required: true },
-  description: { type: String, required: true }
+router.get('/', function(req, res, next) {
+  try {
+    const tripsPath = path.join(__dirname, '../../data/trips.json');
+    const trips = JSON.parse(fs.readFileSync(tripsPath, 'utf8'));
+
+    res.render('travel', { 
+      title: 'Travel - Travlr Getaways', 
+      trips: trips 
+    });
+  } catch (err) {
+    console.error('Error loading trips:', err.message);
+    res.status(500).send('Error loading travel page: ' + err.message);
+  }
 });
 
-const Trip = mongoose.model('trips', tripSchema);
-module.exports = Trip;
+module.exports = router;
