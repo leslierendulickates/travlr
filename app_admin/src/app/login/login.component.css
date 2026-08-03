@@ -1,0 +1,7 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+
+button[type="submit"] {
+  margin-top: 0.5rem;
+}

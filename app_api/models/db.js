@@ -55,7 +55,8 @@ process.on('SIGTERM', () => {
 // Make initial connection to DB
 connect();
 
-// Import Mongoose schema
+// Import Mongoose schemas
 require('./travlr');
+require('./user');
 
 module.exports = mongoose;
